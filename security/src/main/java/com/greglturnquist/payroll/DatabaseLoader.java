@@ -43,10 +43,12 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 
-		Manager greg = this.managers.save(new Manager("greg", "turnquist",
+		Manager greg = this.managers.save(new Manager("greg", "test",
 							"ROLE_MANAGER"));
 		Manager oliver = this.managers.save(new Manager("oliver", "gierke",
 							"ROLE_MANAGER"));
+		Manager brian = this.managers.save(new Manager("brian", "tan",
+				"ROLE_MANAGER"));
 
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
@@ -63,6 +65,14 @@ public class DatabaseLoader implements CommandLineRunner {
 		this.employees.save(new Employee("Samwise", "Gamgee", "gardener", oliver));
 		this.employees.save(new Employee("Merry", "Brandybuck", "pony rider", oliver));
 		this.employees.save(new Employee("Peregrin", "Took", "pipe smoker", oliver));
+
+		SecurityContextHolder.getContext().setAuthentication(
+				new UsernamePasswordAuthenticationToken("brian", "doesn't matter",
+						AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
+
+		this.employees.save(new Employee("Julie", "Chapa", "Fag Hag", brian));
+		this.employees.save(new Employee("Kevin", "Nguyen", "pony rider", brian));
+		this.employees.save(new Employee("Danny", "Tran", "pipe smoker", brian));
 
 		SecurityContextHolder.clearContext();
 	}
