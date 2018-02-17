@@ -16,11 +16,7 @@
 package com.greglturnquist.payroll;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,21 +24,24 @@ import org.springframework.stereotype.Component;
  */
 // tag::code[]
 @Component
-public class SpringDataJpaUserDetailsService implements UserDetailsService {
+public class DatabaseLoader implements CommandLineRunner {
 
-	private final ManagerRepository repository;
+	private final EmployeeRepository repository;
 
 	@Autowired
-	public SpringDataJpaUserDetailsService(ManagerRepository repository) {
+	public DatabaseLoader(EmployeeRepository repository) {
 		this.repository = repository;
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-		Manager manager = this.repository.findByName(name);
-		return new User(manager.getName(), manager.getPassword(),
-				AuthorityUtils.createAuthorityList(manager.getRoles()));
-	}
+	public void run(String... strings) throws Exception {
 
+		this.repository.save(new Employee("Frodo", "Baggins", "ring bearer"));
+		this.repository.save(new Employee("Bilbo", "Baggins", "burglar"));
+		this.repository.save(new Employee("Gandalf", "the Grey", "wizard"));
+		this.repository.save(new Employee("Samwise", "Gamgee", "gardener"));
+		this.repository.save(new Employee("Meriadoc", "Brandybuck", "pony rider"));
+		this.repository.save(new Employee("Peregrin", "Took", "pipe smoker"));
+	}
 }
 // end::code[]

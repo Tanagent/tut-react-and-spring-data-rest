@@ -13,7 +13,5 @@ function register(registrations) {
 	});
 }
 
-module.exports = {
-	register: register
-};
+module.exports.register = register;
 
