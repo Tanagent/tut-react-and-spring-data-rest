@@ -341,7 +341,7 @@ class EmployeeList extends React.Component {
 
 	render() {
 		var pageInfo = this.props.page.hasOwnProperty("number") ?
-			<h3>Employees - Page {this.props.page.number + 1} of {this.props.page.totalPages}</h3> : null;
+			<h3>Employees1 - Page {this.props.page.number + 1} of {this.props.page.totalPages}</h3> : null;
 
 		var employees = this.props.employees.map(employee =>
 			<Employee key={employee.entity._links.self.href}
@@ -367,6 +367,8 @@ class EmployeeList extends React.Component {
 
 		return (
 			<div>
+				jgjhgjgjggj
+                <img src="pulpitrock.jpg" alt="Mountain View">
 				{pageInfo}
 				<input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
 				<table>
